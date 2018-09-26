@@ -77,7 +77,7 @@ This feature corresponds to the respective implementations in each error tracker
 
 ### Recording breadcrumbs
 
-Sometimes a stack trace isn't enough to figure out what steps lead to an error. To this end, SlashTrace let's you record breadcrumbs during execution:
+Sometimes a stack trace isn't enough to figure out what steps lead to an error. To this end, SlashTrace lets you record breadcrumbs during execution:
 
 ```PHP
 $slashtrace->recordBreadcrumb("Router loaded");
