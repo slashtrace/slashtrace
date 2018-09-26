@@ -1,0 +1,24 @@
+language: php
+
+php:
+- 5.6
+- 7.1
+
+install:
+- travis_retry composer self-update
+- travis_retry composer install --no-interaction --no-suggest
+
+script:
+- composer test -- --coverage-clover=coverage.xml
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+
+branches:
+  only:
+  - master
+
+cache:
+  directories:
+  - $HOME/.composer/cache
+
