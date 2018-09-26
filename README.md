@@ -1,5 +1,10 @@
 # SlashTrace - Awesome error handler
 
+[![Build Status](https://travis-ci.org/slashtrace/slashtrace.svg?branch=master)](https://travis-ci.org/slashtrace/slashtrace)
+[![Code Coverage](https://codecov.io/gh/slashtrace/slashtrace/branch/master/graph/badge.svg)](https://codecov.io/gh/slashtrace/slashtrace)
+
+---
+
 [![Screenshot](https://i.imgur.com/pt4jlYX.png)](https://slashtrace.com/demo.php)
 
 ---
