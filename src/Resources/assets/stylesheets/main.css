@@ -1,0 +1,444 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+}
+@media (max-width: 767px) {
+    html, body {
+        font-size: 11px;
+    }
+}
+:focus {
+    outline: none;
+}
+::-moz-focus-inner {
+    border: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1.3rem;
+}
+h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+}
+.code {
+    font-family: "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
+}
+table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+table thead tr th {
+    text-align: left;
+}
+#page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 100%;
+}
+#page > div {
+    overflow: auto;
+}
+#page > div.event {
+    width: 35%;
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-right: 20px;
+}
+#page > div.event > .event-inner {
+    flex: 1;
+}
+#page > div.frame {
+    width: 35%;
+    padding: 15px 20px 10px 0;
+}
+#page > div.context {
+    width: 30%;
+}
+@media (max-width: 1024px) {
+    #page > div.frame {
+        display: none;
+    }
+    #page > div.event {
+        width: 50%;
+    }
+    #page > div.context {
+        width: 50%;
+    }
+}
+@media (max-width: 767px) {
+    #page {
+        display: block;
+    }
+    #page > div.context {
+        width: 100%;
+        padding: 0 10px 10px 10px;
+        position: absolute;
+        top: 0;
+        left: -100%;
+        bottom: 0;
+        z-index: 10;
+        -webkit-transition: left .3s;
+        -moz-transition: left .3s;
+        -o-transition: left .3s;
+        transition: left .3s;
+    }
+    #page > div.context.open {
+        left: 0;
+    }
+    #page > div.event {
+        width: 100%;
+        position: absolute;
+        padding: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 5;
+    }
+}
+ul.stacktrace {
+    direction: ltr;
+}
+ul.stacktrace, ul.stacktrace ul {
+    list-style-type: none;
+}
+ul.stacktrace > li {
+    padding: 0;
+}
+ul.stacktrace > li > ul > li {
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    cursor: pointer;
+}
+ul.stacktrace > li > ul > li pre {
+    display: inline;
+    vertical-align: top;
+}
+ul.stacktrace > li > div {
+    padding: 20px 15px;
+}
+ul.stacktrace > li > div span.event-level {
+    float: right;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+ul.stacktrace > li > div h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 0;
+    word-break: break-all;
+}
+ul.stacktrace > li > div h3 {
+    font-size: 1.1rem;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+ul.stacktrace li em {
+    font-style: normal;
+    display: block;
+    margin-bottom: 10px;
+    word-break: break-all;
+}
+ul.stacktrace li div.location {
+    font-size: 0.9rem;
+    word-break: break-all;
+}
+ul.stacktrace > li > ul > li.active:after,
+ul.stacktrace > li > ul > li.active:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+ul.stacktrace > li > ul > li.active:after {
+    border-width: 8px;
+    margin-top: -8px;
+}
+ul.stacktrace > li > ul > li.active:before {
+    border-width: 9px;
+    margin-top: -9px;
+}
+ul.stacktrace li .frame-context,
+.frame .frame-context {
+    display: none;
+}
+ul.stacktrace li span.icon {
+    display: none;
+    font-size: 1.2rem;
+    float: right;
+    margin: 10px 0 0 10px;
+}
+@media (max-width: 1024px) {
+    ul.stacktrace li.active .frame-context {
+        display: block;
+        margin-top: 10px;
+    }
+    ul.stacktrace li span.icon-right {
+        display: inline;
+    }
+    ul.stacktrace li.active span.icon-right {
+        display: none;
+    }
+    ul.stacktrace li.active span.icon-down {
+        display: inline;
+    }
+}
+.frame .frame-context.active {
+    display: block;
+}
+pre {
+    tab-size: 4;
+}
+pre ol {
+    padding: 15px 0 15px 50px;
+    list-style: decimal;
+}
+@media (max-width: 1024px) {
+    pre ol {
+        padding: 10px 0 10px 40px;
+    }
+}
+pre ol li {
+    white-space: pre-wrap;
+    padding: 0 20px 0 5px;
+}
+.frame-context div.code h2 {
+    font-size: 0.9rem;
+    line-height: 1.1rem;
+    font-weight: normal;
+    padding: 15px 20px;
+    margin: 0;
+}
+.frame-context .frame-arguments {
+    padding: 20px 10px;
+}
+.frame-context .frame-arguments h2 {
+    margin-bottom: 10px;
+}
+.frame-context .frame-arguments p {
+    margin-top: 15px;
+}
+.frame-context .frame-arguments table td {
+    vertical-align: top;
+    padding: 10px 0;
+}
+.frame-context .frame-arguments table td.code {
+    width: 25px;
+    white-space: nowrap;
+    line-height: 1.4em;
+}
+.frame-context .frame-arguments table td:first-child {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.context table th {
+    padding: 5px 0;
+}
+.context table td {
+    border: none;
+    padding: 5px;
+    font-size: 0.9rem;
+    word-break: break-all;
+}
+.context table tr td:first-child {
+    font-weight: bold;
+    width: 120px;
+    white-space: nowrap;
+}
+.expandable {
+    max-height: 350px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 30px;
+}
+.expandable.expanded {
+    max-height: inherit;
+}
+.expandable .expander {
+    position: absolute;
+    height: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 60px 0 0 0;
+}
+.expandable.expanded .expander {
+    display: none;
+}
+.expandable .expander a {
+    display: inline-block;
+}
+hr {
+    margin: 20px 0;
+    height: 0;
+}
+.box {
+    margin-bottom: 20px;
+}
+.expandable .box:last-child {
+    margin-bottom: 0;
+}
+ul.tabs {
+    list-style-type: none;
+    padding-top: 15px;
+}
+ul.tabs li {
+    display: inline;
+}
+ul.tabs li a {
+    display: inline-block;
+    padding: 13px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 14px;
+}
+ul.tabs li a span {
+    font-size: 1.1rem;
+}
+.context .tabs li a span.tab-label-short {
+    display: none;
+}
+@media (min-width: 1025px) and (max-width: 1440px), (min-width: 768px) and (max-width: 868px), (max-width: 460px) {
+    .context .tabs li a span.tab-label {
+        display: none;
+    }
+    .context .tabs li a span.tab-label-short {
+        display: inline;
+    }
+}
+@media (min-width: 1025px) and (max-width: 1100px), (max-width: 310px) {
+    .context .tabs li a span.tab-label-short {
+        display: none;
+    }
+}
+.tab-pane {
+    display: none;
+    padding: 20px;
+}
+.tab-pane.active {
+    display: block;
+}
+.tab-pane hr:first-child {
+    display: none;
+}
+ol.breadcrumbs {
+    list-style-type: none;
+    margin: 20px 0 0 80px;
+}
+ol.breadcrumbs > li {
+    padding: 0 20px 10px 20px;
+    position: relative;
+    margin-bottom: 10px;
+}
+ol.breadcrumbs > li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+ol.breadcrumbs > li > time {
+    position: absolute;
+    padding: 4px 7px;
+    left: -78px;
+    display: block;
+    font-size: 11px;
+    top: -3px;
+}
+ol.breadcrumbs > li > strong {
+    display: block;
+    margin-bottom: 10px;
+}
+a.menu {
+    position: fixed;
+    z-index: 20;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    width: 35px;
+    height: 30px;
+}
+a.menu > div {
+    width: 100%;
+    height: 100%;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+a.menu > div span {
+    display: block;
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -o-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
+}
+a.menu > div span:nth-child(1) {
+    top: 0;
+}
+a.menu > div span:nth-child(2),
+a.menu > div span:nth-child(3) {
+    top: 8px;
+}
+a.menu > div span:nth-child(4) {
+    top: 16px;
+}
+a.menu.open > div span:nth-child(1) {
+    top: 8px;
+    width: 0;
+    left: 50%;
+}
+a.menu.open > div span:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+a.menu.open > div span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+a.menu.open > div span:nth-child(4) {
+    top: 8px;
+    width: 0;
+    left: 50%;
+}

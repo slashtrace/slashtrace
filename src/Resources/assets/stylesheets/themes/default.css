@@ -1,0 +1,277 @@
+body {
+    color: #222;
+    background: #ECEFF1;
+}
+a {
+    color: #ed5565;
+}
+a:hover {
+    color: #333;
+}
+#page > div.event > div.event-inner,
+#page > div.context {
+    background: white;
+}
+#page > .frame {
+    background: #ECEFF1;
+}
+#page > div.event > div.event-inner {
+    box-shadow: inset -2px 0 0 -1px #DADDDF, 2px 0 0 rgba(0, 0, 0, 0.02);
+}
+@media (max-width: 767px) {
+    #page > div.event > div.event-inner {
+        box-shadow: none;
+    }
+    #page > div.context {
+        background: #ECEFF1;
+    }
+    #page > div.context .tab-pane {
+        background: white;
+    }
+}
+ul.stacktrace > li > div, .frame-context div.code {
+    background: #283593;
+    color: white;
+}
+ul.stacktrace > li > div span {
+    color: rgba(255, 255, 255, 0.4);
+}
+ul.stacktrace > li > ul > li {
+    border: 1px solid #DADDDF;
+    border-right-color: transparent;;
+    border-left-width: 0;
+    position: relative;
+    z-index: 1;
+}
+ul.stacktrace > li > ul > li:nth-child(2n+1) {
+    background: #f7fafc;
+    border-right-color: #DADDDF;
+}
+ul.stacktrace > li > ul > li:hover {
+    background: #ECEFF1;
+    border-right-color: #DADDDF;
+    z-index: 2;
+}
+ul.stacktrace > li > ul > li.active {
+    z-index: 3;
+    background: #B3E5FC;
+    border-color: #81D4FA;
+}
+@media (max-width: 767px) {
+    ul.stacktrace > li > ul > li:nth-child(2n+1),
+    ul.stacktrace > li > ul > li:hover,
+    ul.stacktrace > li > ul > li.active {
+        border-right: 0;
+    }
+}
+ul.stacktrace > li > ul > li:first-child,
+ul.stacktrace > li > ul > li.active:first-child {
+    border-top: none;
+}
+ul.stacktrace > li:not(:last-child) > ul > li:last-child,
+ul.stacktrace > li:not(:last-child) > ul > li.active:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+ul.stacktrace > li > ul > li.active:after {
+    border-left-color: #B3E5FC;
+}
+ul.stacktrace > li > ul > li.active:before {
+    border-left-color: #81D4FA;
+}
+@media (max-width: 1024px) {
+    ul.stacktrace > li > ul > li.active:after,
+    ul.stacktrace > li > ul > li.active:before {
+        display: none;
+    }
+}
+ul.stacktrace li span.icon {
+    opacity: 0.5;
+}
+ul.stacktrace li.active span.icon {
+    opacity: 1;
+}
+ul.stacktrace li em span.class {
+    color: #0090E4;
+}
+ul.stacktrace li em span.function {
+    color: #d65060;
+}
+ul.stacktrace li em span.argument {
+    color: #673AB7;
+}
+ul.stacktrace li em span.argument.argument-boolean-true {
+    color: #009688;
+}
+ul.stacktrace li em span.argument.argument-boolean-false {
+    color: #C00;
+}
+ul.stacktrace li em span.argument.argument-string {
+    color: #576679;
+}
+ul.stacktrace li div.location {
+    color: #576679;
+    font-family: "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
+}
+ul.stacktrace li div.location span {
+    font-weight: bold;
+}
+.frame-context div.code {
+    border-radius: 6px 6px 4px 4px;
+    color: #EDEBE6;
+}
+.frame-context div.code h2 {
+    background: #1A237E;
+    border-radius: 4px 4px 0 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+.frame-context .frame-arguments p,
+.context p {
+    color: #8aa2ad;
+}
+.prettyprint {
+    font-family: "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
+}
+.prettyprint ol li.active {
+    background: rgba(0, 0, 0, 0.3);
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+ol.linenums, .com {
+    color: rgba(255, 255, 255, 0.4);
+}
+.str, .atv {
+    color: #ffce54;
+}
+.pln, .pun, .opn, .clo, .var {
+    color: #e6e9ed;
+}
+.kwd, .fun {
+    color: #4fc1e9;
+}
+.typ, .dec {
+    color: #ac92ec;
+}
+.lit, .tag {
+    color: #ff8498;
+}
+.atn {
+    color: #a0d468;
+}
+pre.sf-dump, pre.sf-dump .sf-dump-default {
+    background: transparent !important;
+    padding: 0 !important;
+}
+pre.sf-dump, pre.sf-dump * {
+    font-family: "Source Code Pro", Monaco, Consolas, "Lucida Console", monospace;
+    line-height: 1.4rem !important;
+    font-size: 1rem !important;
+}
+pre.sf-dump .sf-dump-public,
+pre.sf-dump .sf-dump-key {
+    color: black !important;
+}
+pre.sf-dump, pre.sf-dump .sf-dump-default,
+pre.sf-dump .sf-dump-note {
+    color: #673AB7 !important;
+}
+pre.sf-dump .sf-dump-str {
+    color: #f59400 !important;
+    font-weight: normal !important;
+}
+pre.sf-dump .sf-dump-ref {
+    color: #333 !important;
+}
+pre.sf-dump .sf-dump-private,
+pre.sf-dump .sf-dump-protected {
+    color: #d65060 !important;
+}
+pre.sf-dump .sf-dump-const {
+    color: #d65060 !important;
+}
+.context table td {
+    border-top: 1px solid #DADDDF;
+}
+.context table tr:first-child td {
+    border-top: none;
+}
+.context table tr:nth-child(2n) td {
+    background: #f7fafc;
+}
+.context table td.code {
+    color: #d65060;
+}
+.expandable .expander {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0);
+}
+.btn {
+    font-weight: bold;
+    font-size: 0.9rem;
+    background: #2962FF;
+    color: white;
+    text-decoration: none;
+    padding: 7px 10px;
+    border-radius: 4px;
+    border: 1px solid #0D47A1;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1)
+}
+.btn:hover, .btn:active {
+    text-decoration: none;
+    background: #275cd6;
+    border-color: #0d3f80;
+}
+hr {
+    border: 0;
+    border-top: 1px solid #DADDDF;
+}
+ul.tabs {
+    background: #ECEFF1;
+}
+ul.tabs li a {
+    border-radius: 4px 4px 0 0;
+    border-top: 4px solid transparent;
+    padding-top: 10px;
+    color: #333;
+}
+ul.tabs li.active a {
+    color: #0091EA;
+    border-top-color: #5C6BC0;
+    background: white;
+}
+ol.breadcrumbs {
+    border-left: 3px solid #81D4FA;
+}
+ol.breadcrumbs > li > time {
+    background: #B3E5FC;
+    border-radius: 4px;
+}
+ol.breadcrumbs > li > time:after {
+    left: 100%;
+    top: 50%;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border: 4px solid transparent;
+    border-left-color: #B3E5FC;
+    margin-top: -4px;
+}
+ol.breadcrumbs > li:before {
+    content: " ";
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 100%;
+    border: 3px solid #0091EA;
+    background: white;
+}
+a.menu {
+    background: #242934;
+}
+a.menu > div span {
+    background: #B3E5FC;
+}
