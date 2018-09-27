@@ -8,7 +8,6 @@ use SlashTrace\Exception\ExceptionData;
 use SlashTrace\Template\ResourceLoader;
 use SlashTrace\Template\TemplateEngine;
 use SlashTrace\Tests\Doubles\System\MockSystemProvider;
-use SlashTrace\Tests\Doubles\Template\MockTemplateEngine;
 use SlashTrace\Tests\TestCase;
 
 /**
@@ -19,9 +18,6 @@ class DebugWebRendererTest extends TestCase
     /** @var DebugWebRenderer */
     private $renderer;
 
-    /** @var MockTemplateEngine */
-    private $templateEngine;
-
     /** @var MockSystemProvider */
     private $system;
 
@@ -29,18 +25,27 @@ class DebugWebRendererTest extends TestCase
     {
         parent::setUp();
 
-        $this->templateEngine = new MockTemplateEngine();
-
         $this->system = new MockSystemProvider();
 
         $this->renderer = new DebugWebRenderer();
         $this->renderer->setSystem($this->system);
-        $this->renderer->setTemplateEngine($this->templateEngine);
     }
 
-    private function getTemplateData($key)
+    private function mockTemplateEngine(callable $renderCallback = null)
     {
-        return $this->templateEngine->getRenderData()[$key];
+        $templateEngine = $this->createMock(TemplateEngine::class);
+
+        if (!is_null($renderCallback)) {
+            $templateEngine->expects($this->once())
+                ->method("render")
+                ->willReturnCallback(function ($template, array $data) use ($renderCallback) {
+                    $this->assertNotEmpty($template);
+                    $renderCallback($data);
+                });
+        }
+
+        /** @noinspection PhpParamsInspection */
+        $this->renderer->setTemplateEngine($templateEngine);
     }
 
     public function testTemplateEngineIsInitializedIfNotSet()
@@ -51,8 +56,10 @@ class DebugWebRendererTest extends TestCase
 
     public function testWhenEventHasNoExceptions_pageTitleIsDefault()
     {
+        $this->mockTemplateEngine(function (array $data) {
+            $this->assertNotEmpty($data["pageTitle"]);
+        });
         $this->renderer->render(new Event());
-        $this->assertTrue(strlen($this->getTemplateData("pageTitle")) > 0);
     }
 
     public function testFirstExceptionMessageIsUsedAsPageTitle()
@@ -62,26 +69,33 @@ class DebugWebRendererTest extends TestCase
         $exception->setMessage("Test message");
         $event->addException($exception);
 
-        $this->renderer->render($event);
+        $this->mockTemplateEngine(function (array $data) use ($exception) {
+            $this->assertEquals($exception->getMessage(), $data["pageTitle"]);
+        });
 
-        $this->assertEquals($exception->getMessage(), $this->getTemplateData("pageTitle"));
+        $this->renderer->render($event);
     }
 
     public function testEventIsPassedToTemplate()
     {
         $event = new Event();
+        $this->mockTemplateEngine(function (array $data) use ($event) {
+            $this->assertSame($event, $data["event"]);
+        });
         $this->renderer->render($event);
-        $this->assertSame($event, $this->getTemplateData("event"));
     }
 
     public function testResourceLoaderPassedToTemplate()
     {
+        $this->mockTemplateEngine(function (array $data) {
+            $this->assertInstanceOf(ResourceLoader::class, $data["resourceLoader"]);
+        });
         $this->renderer->render(new Event());
-        $this->assertInstanceOf(ResourceLoader::class, $this->getTemplateData("resourceLoader"));
     }
 
     public function testPreviousOutputBuffersAreCleanedBeforeRendering()
     {
+        $this->mockTemplateEngine();
         $this->renderer->render(new Event());
         $this->assertTrue($this->system->cleanOutputBufferCalled);
     }
