@@ -277,7 +277,7 @@ class ErrorHandlerTest extends TestCase
         $handler->install();
         $handler->onException(new Exception());
 
-        $this->assertEquals(-1, bccomp($handlerCallTime, $this->system->terminateTime, 4));
+        $this->assertGreaterThan($handlerCallTime, $this->system->terminateTime);
     }
 
     public function testPreviousErrorHandlerIsCalledBeforeExecutionIsTerminated()
@@ -297,6 +297,6 @@ class ErrorHandlerTest extends TestCase
         $handler->install();
         $handler->onError(E_USER_ERROR, "Error message");
 
-        $this->assertEquals(-1, bccomp($handlerCallTime, $this->system->terminateTime, 4));
+        $this->assertGreaterThan($handlerCallTime, $this->system->terminateTime);
     }
 }
