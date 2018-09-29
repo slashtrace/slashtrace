@@ -29,6 +29,8 @@ When you're done with local debugging, you can configure SlashTrace to send erro
 
    $slashtrace = new SlashTrace();
    $slashtrace->addHandler(new DebugHandler());
+
+   // Register the error and exception handlers
    $slashtrace->register();
    ```
 
