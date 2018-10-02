@@ -20,12 +20,12 @@ class System implements SystemProvider
 
     public function setErrorHandler(callable $handler)
     {
-        set_error_handler($handler);
+        return set_error_handler($handler);
     }
 
     public function setExceptionHandler(callable $handler)
     {
-        set_exception_handler($handler);
+        return set_exception_handler($handler);
     }
 
     public function registerShutdownFunction(callable $handler)
