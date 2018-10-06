@@ -5,11 +5,11 @@
 
 ---
 
-[![Screenshot](https://i.imgur.com/pt4jlYX.png)](https://slashtrace.com/demo.php)
+[![Screenshot](https://slashtrace.com/demo.png)](https://slashtrace.com/demo.php)
 
 ---
 
-SlashTrace is, at its core, an error and exception handler. You hook it into your error handling routine (or let it set itself up to catch all errors and exceptions), and it captures and displays a lot of nice information about your errors. It does this for normal browser requests, but also for [AJAX](https://i.imgur.com/BnvCp4N.png) and the [CLI](https://i.imgur.com/GA7tS0T.png).
+SlashTrace is, at its core, an error and exception handler. You hook it into your error handling routine (or let it set itself up to catch all errors and exceptions), and it captures and displays a lot of nice information about your errors. It does this for normal browser requests, but also for [AJAX](https://slashtrace.com/demo-ajax.png), the [CLI](https://slashtrace.com/demo-cli.png), and [JSON APIs](https://slashtrace.com/demo.json).
 
 When you're done with local debugging, you can configure SlashTrace to send errors to dedicated error reporting services, like [Sentry](https://sentry.io/), [Raygun](https://raygun.com/), and [Bugsnag](https://www.bugsnag.com/).
 
@@ -114,6 +114,25 @@ Tracker docs:
 - [Raygun - Version numbers](https://raygun.com/docs/languages/php#php-version-number)
 - Bugsnag - The release version cannot be explicitly set per event. Read the [Bugsnag docs](https://docs.bugsnag.com/platforms/php/other/#tracking-releases) for more details.
 
+## Debug renderers
 
+When you use the bundled debug handler, it tries to choose an appropiate output renderer based on the environment in which it's running, like this:
+
+- The [CLI renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugCliRenderer.php) when `php_sapi_name() === "cli`. [Example output](https://slashtrace.com/demo-cli.png).
+- The [plain text renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugTextRenderer.php), for AJAX requests (requests with the `X-Requested-With: XMLHttpRequest` header). [Example output](https://slashtrace.com/demo-ajax.png).
+- The [JSON renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugJsonRenderer.php), for requests with the `Accept: application/json` header. [Example output](https://slashtrace.com/demo.json).
+- The [Web renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugWebRenderer.php), for all other requests. [Example output](https://slashtrace.com/demo.php).
+
+Alternatively, you can force the debug handler to use a particular renderer:
+
+```PHP
+use SlashTrace\EventHandler\DebugHandler;
+use SlashTrace\DebugRenderer\DebugJsonRenderer;
+
+$handler = new DebugHandler();
+$handler->setRenderer(new DebugJsonRenderer());
+
+$slashtrace->addHandler($handler);
+```
 
 
