@@ -120,7 +120,8 @@ class EventProvider
             'HTTP_HOST' => 'example.com',
             'HTTP_AUTHORIZATION' => '',
             'FCGI_ROLE' => 'RESPONDER',
-            'PHP_SELF' => '/var/www/lorem/ipsum/index.php'
+            'PHP_SELF' => '/var/www/lorem/ipsum/index.php',
+            'argv' => ['foo', 'bar']
         ];
     }
 
