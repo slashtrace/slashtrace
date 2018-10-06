@@ -2,9 +2,12 @@
 
 namespace SlashTrace\StackTrace;
 
-class StackFrame
-{
+use JsonSerializable;
+use SlashTrace\Formatter\StackFrameCallTextFormatter;
+use SlashTrace\Serializer\Serializer;
 
+class StackFrame implements JsonSerializable
+{
     const TYPE_METHOD = "->";
     const TYPE_STATIC = "::";
     const TYPE_FUNCTION = "";
@@ -110,4 +113,17 @@ class StackFrame
         return ltrim(substr($path, strlen($rootPath)), "/\\");
     }
 
+    public function jsonSerialize()
+    {
+        $serializer = new Serializer();
+        $callFormatter = new StackFrameCallTextFormatter();
+        return array_filter([
+            "at"        => $callFormatter->format($this),
+            "file"      => $this->getFile(),
+            "line"      => $this->getLine(),
+            "arguments" => array_map(function ($argument) use ($serializer) {
+                return $serializer->serialize($argument);
+            }, $this->getArguments()),
+        ]);
+    }
 }

@@ -2,11 +2,12 @@
 
 namespace SlashTrace\Context;
 
+use JsonSerializable;
 use SlashTrace\Context\Breadcrumbs\Breadcrumb;
 use SlashTrace\System\SystemProvider;
 use DateTime;
 
-class Breadcrumbs
+class Breadcrumbs implements JsonSerializable
 {
     const MAX_SIZE = 25;
 
@@ -76,5 +77,10 @@ class Breadcrumbs
     public function clear()
     {
         $this->crumbs = [];
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->crumbs;
     }
 }

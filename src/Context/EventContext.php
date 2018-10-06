@@ -3,9 +3,10 @@
 namespace SlashTrace\Context;
 
 use Exception;
+use JsonSerializable;
 use SlashTrace\Http\Request;
 
-class EventContext
+class EventContext implements JsonSerializable
 {
     /** @var string */
     private $release;
@@ -127,5 +128,17 @@ class EventContext
             return true;
         }
         return !is_null($this->getRelease()) || !is_null($this->getUser());
+    }
+
+    public function jsonSerialize()
+    {
+        return array_filter([
+            "request"          => $this->getHTTPRequest(),
+            "server"           => $this->getServer(),
+            "user"             => $this->getUser(),
+            "breadcrumbs"      => $this->getBreadcrumbs(),
+            "release"          => $this->getRelease(),
+            "application_path" => $this->getApplicationPath(),
+        ]);
     }
 }

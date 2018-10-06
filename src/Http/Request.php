@@ -2,7 +2,9 @@
 
 namespace SlashTrace\Http;
 
-class Request
+use JsonSerializable;
+
+class Request implements JsonSerializable
 {
     protected $headers = [];
 
@@ -137,5 +139,17 @@ class Request
             }
         }
         return null;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "url"     => $this->getUrl(),
+            "headers" => $this->getHeaders(),
+            "get"     => $this->getGetData(),
+            "post"    => $this->getPostData(),
+            "cookies" => $this->getCookies(),
+            "ip"      => $this->getIP(),
+        ];
     }
 }

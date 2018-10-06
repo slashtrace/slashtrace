@@ -4,10 +4,10 @@ namespace SlashTrace;
 
 use SlashTrace\Context\EventContext;
 use SlashTrace\Exception\ExceptionData;
+use JsonSerializable;
 
-class Event
+class Event implements JsonSerializable
 {
-
     /** @var string */
     private $level;
 
@@ -59,4 +59,12 @@ class Event
         $this->context = $context;
     }
 
+    public function jsonSerialize()
+    {
+        return [
+            "level"   => $this->getLevel(),
+            "errors"  => $this->getExceptions(),
+            "context" => $this->getContext(),
+        ];
+    }
 }
