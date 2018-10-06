@@ -62,7 +62,7 @@ class Request
         return implode("-", $parts);
     }
 
-    private function getHeader($header)
+    public function getHeader($header)
     {
         $headers = $this->getHeaders();
         return isset($headers[$header]) ? $headers[$header] : null;
