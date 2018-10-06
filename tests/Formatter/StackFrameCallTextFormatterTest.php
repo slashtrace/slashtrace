@@ -62,7 +62,7 @@ class StackFrameCallTextFormatterTest extends StackFrameCallFormatterTestCase
         $this->frame->setArguments([
             "/var/www/index.php",
             new stdClass,
-            [1, 2, 3]
+            [1, 2, 3],
         ]);
 
         $this->assertFormat('test("/var/www/index.php", Object[stdClass], array[3])');
@@ -71,9 +71,9 @@ class StackFrameCallTextFormatterTest extends StackFrameCallFormatterTestCase
     public function testTagFormatterIsUsed()
     {
         $this->tagFormatter->setTags([
-            StackTraceTagFormatter::TAG_CLASS => "class",
+            StackTraceTagFormatter::TAG_CLASS    => "class",
             StackTraceTagFormatter::TAG_FUNCTION => "function",
-            StackTraceTagFormatter::TAG_ARGUMENT => "argument"
+            StackTraceTagFormatter::TAG_ARGUMENT => "argument",
         ]);
 
         $this->frame->setClassName("TestNamespace\\TestClass");
@@ -82,5 +82,17 @@ class StackFrameCallTextFormatterTest extends StackFrameCallFormatterTestCase
         $this->frame->setArguments([1, 2]);
 
         $this->assertFormat("TestNamespace\\<class>TestClass</class>-><function>test</function>(<argument>1</argument>, <argument>2</argument>)");
+    }
+
+    public function testFormatWithoutTagFormatter()
+    {
+        $formatter = new StackFrameCallTextFormatter();
+
+        $this->frame->setClassName("TestNamespace\\TestClass");
+        $this->frame->setType(StackFrame::TYPE_METHOD);
+        $this->frame->setFunctionName("test");
+        $this->frame->setArguments([1, 2]);
+
+        $this->assertEquals("TestNamespace\\TestClass->test(1, 2)", $formatter->format($this->frame));
     }
 }
