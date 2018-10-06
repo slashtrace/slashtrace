@@ -120,7 +120,7 @@ When you use the bundled debug handler, it tries to choose an appropiate output 
 
 - The [CLI renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugCliRenderer.php) when `php_sapi_name() === "cli`. [Example output](https://slashtrace.com/demo-cli.png).
 - The [plain text renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugTextRenderer.php), for AJAX requests (requests with the `X-Requested-With: XMLHttpRequest` header). [Example output](https://slashtrace.com/demo-ajax.png).
-- The [JSON renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugJsonRenderer.php), for requests with the `Accept: application/json` header. [Example output](https://slashtrace.com/demo.json).
+- The [JSON renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugJsonRenderer.php), for requests with the `Accept: application/json` header. This takes precedence over the text renderer, in case both headers are present. [Example output](https://slashtrace.com/demo.json).
 - The [Web renderer](https://github.com/slashtrace/slashtrace/blob/master/src/DebugRenderer/DebugWebRenderer.php), for all other requests. [Example output](https://slashtrace.com/demo.php).
 
 Alternatively, you can force the debug handler to use a particular renderer:
