@@ -3,8 +3,9 @@
 namespace SlashTrace\Context;
 
 use InvalidArgumentException;
+use JsonSerializable;
 
-class User
+class User implements JsonSerializable
 {
     /** @var string */
     private $id;
@@ -64,5 +65,14 @@ class User
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    public function jsonSerialize()
+    {
+        return array_filter([
+            "id"    => $this->getId(),
+            "email" => $this->getEmail(),
+            "name"  => $this->getName(),
+        ]);
     }
 }

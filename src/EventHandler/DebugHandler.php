@@ -5,6 +5,7 @@ namespace SlashTrace\EventHandler;
 use SlashTrace\Context\Breadcrumbs;
 use SlashTrace\Context\EventContext;
 use SlashTrace\Context\User;
+use SlashTrace\DebugRenderer\DebugJsonRenderer;
 use SlashTrace\DebugRenderer\DebugRenderer;
 use SlashTrace\DebugRenderer\DebugCliRenderer;
 use SlashTrace\DebugRenderer\DebugWebRenderer;
@@ -75,6 +76,10 @@ class DebugHandler implements EventHandler
         }
 
         $request = $system->getHttpRequest();
+        if ($request->getHeader("Accept") === "application/json") {
+            return new DebugJsonRenderer();
+        }
+
         if ($request->isXhr()) {
             return new DebugTextRenderer();
         }

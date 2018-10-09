@@ -1,0 +1,56 @@
+{
+    "level": "error",
+    "errors": [
+        {
+            "type": "ErrorException",
+            "message": "Something went wrong!",
+            "stacktrace": [
+                {
+                    "at": "SlashTrace\\Test->test(1, 2, 3)",
+                    "file": "\/foo\/bar.php",
+                    "line": 100,
+                    "arguments": [
+                        1,
+                        2,
+                        3
+                    ]
+                }
+            ]
+        }
+    ],
+    "context": {
+        "request": {
+            "url": "https:\/\/example.com",
+            "headers": {
+                "Accept": "application\/json"
+            },
+            "get": [],
+            "post": {
+                "foo": "bar"
+            },
+            "cookies": {
+                "PHPSESSID": "foo"
+            },
+            "ip": "123.123.123.123"
+        },
+        "server": {
+            "foo": "bar"
+        },
+        "user": {
+            "id": 123,
+            "email": "john.doe@example.com",
+            "name": "John Doe"
+        },
+        "breadcrumbs": [
+            {
+                "title": "Foo",
+                "data": {
+                    "foo": "bar"
+                },
+                "time": "2018-10-06T13:19:00+00:00"
+            }
+        ],
+        "release": "1.0.0",
+        "application_path": "\/var\/www"
+    }
+}

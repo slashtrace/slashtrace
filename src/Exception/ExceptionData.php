@@ -2,9 +2,10 @@
 
 namespace SlashTrace\Exception;
 
+use JsonSerializable;
 use SlashTrace\StackTrace\StackFrame;
 
-class ExceptionData
+class ExceptionData implements JsonSerializable
 {
     /** @var string */
     private $message;
@@ -49,5 +50,14 @@ class ExceptionData
     public function setStackTrace(array $stackTrace)
     {
         $this->stackTrace = $stackTrace;
+    }
+
+    public function jsonSerialize()
+    {
+        return array_filter([
+            "type"       => $this->getType(),
+            "message"    => $this->getMessage(),
+            "stacktrace" => $this->getStackTrace(),
+        ]);
     }
 }

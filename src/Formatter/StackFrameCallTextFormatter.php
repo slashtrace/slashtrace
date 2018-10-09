@@ -4,7 +4,6 @@ namespace SlashTrace\Formatter;
 
 class StackFrameCallTextFormatter extends StackFrameCallFormatter
 {
-
     /** @var StackTraceTagFormatter */
     private $tagFormatter;
 
@@ -39,5 +38,4 @@ class StackFrameCallTextFormatter extends StackFrameCallFormatter
         }
         return $this->tagFormatter->format($input, $tag);
     }
-
 }

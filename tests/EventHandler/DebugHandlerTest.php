@@ -4,6 +4,7 @@ namespace SlashTrace\Tests\EventHandler;
 
 use SlashTrace\Context\EventContext;
 use SlashTrace\Context\User;
+use SlashTrace\DebugRenderer\DebugJsonRenderer;
 use SlashTrace\DebugRenderer\DebugRenderer;
 use SlashTrace\Http\Request;
 use SlashTrace\DebugRenderer\DebugCliRenderer;
@@ -93,6 +94,18 @@ class DebugHandlerTest extends TestCase
         $this->system->setIsWeb($request);
 
         $this->assertInstanceOf(DebugTextRenderer::class, $this->handler->getRenderer());
+    }
+
+    public function testRendererSelectionWhenJsonRequest()
+    {
+        $request = $this->createMock(Request::class);
+        $request->expects($this->once())
+            ->method("getHeader")
+            ->with("Accept")
+            ->willReturn("application/json");
+
+        $this->system->setIsWeb($request);
+        $this->assertInstanceOf(DebugJsonRenderer::class, $this->handler->getRenderer());
     }
 
     public function testCanSetRenderer()

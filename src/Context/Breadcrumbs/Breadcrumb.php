@@ -3,8 +3,9 @@
 namespace SlashTrace\Context\Breadcrumbs;
 
 use DateTime;
+use JsonSerializable;
 
-class Breadcrumb
+class Breadcrumb implements JsonSerializable
 {
     /** @var string */
     private $title;
@@ -49,5 +50,14 @@ class Breadcrumb
     public function getDateTime()
     {
         return $this->dateTime;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "title" => $this->getTitle(),
+            "data"  => $this->getData(),
+            "time"  => $this->getDateTime()->format(DATE_ATOM),
+        ];
     }
 }
