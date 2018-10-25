@@ -65,6 +65,12 @@ class SlashTrace
         $this->handlers[] = $handler;
     }
 
+    public function pushHandler(EventHandler $handler)
+    {
+        $this->checkUniqueHandler($handler);
+        array_unshift($this->handlers, $handler);
+    }
+
     /**
      * Checks that a particular handler hasn't already been registered
      *
