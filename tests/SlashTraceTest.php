@@ -64,15 +64,34 @@ class SlashTraceTest extends TestCase
 
     public function testCanAddHandlers()
     {
-        $handler = $this->createMock(EventHandler::class);
+        $handler1 = $this->createMock(EventHandler::class);
+        $handler2 = $this->createMock(EventHandler::class);
 
         /** @noinspection PhpParamsInspection */
-        $this->slashtrace->addHandler($handler);
+        $this->slashtrace->addHandler($handler1);
+        $this->slashtrace->addHandler($handler2);
 
         $handlers = $this->slashtrace->getHandlers();
 
-        $this->assertEquals(1, count($handlers));
-        $this->assertSame($handler, $handlers[0]);
+        $this->assertEquals(2, count($handlers));
+        $this->assertSame($handler1, $handlers[0]);
+        $this->assertSame($handler2, $handlers[1]);
+    }
+
+    public function testCanPrependHandlers()
+    {
+        $handler1 = $this->createMock(EventHandler::class);
+        $handler2 = $this->createMock(EventHandler::class);
+
+        /** @noinspection PhpParamsInspection */
+        $this->slashtrace->prependHandler($handler1);
+        $this->slashtrace->prependHandler($handler2);
+
+        $handlers = $this->slashtrace->getHandlers();
+
+        $this->assertEquals(2, count($handlers));
+        $this->assertSame($handler2, $handlers[0]);
+        $this->assertSame($handler1, $handlers[1]);
     }
 
     public function testAddingTheSameHandlerTwiceRaisesException()
