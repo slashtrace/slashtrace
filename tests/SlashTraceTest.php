@@ -78,14 +78,14 @@ class SlashTraceTest extends TestCase
         $this->assertSame($handler2, $handlers[1]);
     }
 
-    public function testCanPushHandlers()
+    public function testCanPrependHandlers()
     {
         $handler1 = $this->createMock(EventHandler::class);
         $handler2 = $this->createMock(EventHandler::class);
 
         /** @noinspection PhpParamsInspection */
-        $this->slashtrace->pushHandler($handler1);
-        $this->slashtrace->pushHandler($handler2);
+        $this->slashtrace->prependHandler($handler1);
+        $this->slashtrace->prependHandler($handler2);
 
         $handlers = $this->slashtrace->getHandlers();
 
