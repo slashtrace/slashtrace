@@ -17,6 +17,9 @@ class StackFrameContextExtractor
      */
     public function getContext($file, $line, $contextLines = 15)
     {
+        if ($file === "Unknown") {
+            return [];
+        }
         if (!file_exists($file)) {
             throw new RuntimeException();
         }

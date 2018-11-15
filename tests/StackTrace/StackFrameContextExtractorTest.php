@@ -30,6 +30,11 @@ class StackFrameContextExtractorTest extends TestCase
         $this->extractor->getContext("/missing/file", 0, 5);
     }
 
+    public function testWhenFileIsUnknownEmptyArrayIsReturned()
+    {
+        $this->assertEquals([], $this->extractor->getContext("Unknown", 0));
+    }
+
     public function testWhenNegativeLineNumberProvided_exceptionIsThrown()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -62,7 +67,7 @@ class StackFrameContextExtractorTest extends TestCase
             3 => "Line 3",
             4 => "Line 4",
             5 => "Line 5",
-            6 => "Line 6"
+            6 => "Line 6",
         ], $this->getContext(1, 5));
     }
 
