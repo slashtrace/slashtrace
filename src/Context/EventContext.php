@@ -130,7 +130,7 @@ class EventContext implements JsonSerializable
         return !is_null($this->getRelease()) || !is_null($this->getUser());
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return array_filter([
             "request"          => $this->getHTTPRequest(),

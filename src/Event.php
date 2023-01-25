@@ -59,7 +59,7 @@ class Event implements JsonSerializable
         $this->context = $context;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return [
             "level"   => $this->getLevel(),
