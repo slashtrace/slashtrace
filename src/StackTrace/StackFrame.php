@@ -113,7 +113,7 @@ class StackFrame implements JsonSerializable
         return ltrim(substr($path, strlen($rootPath)), "/\\");
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $serializer = new Serializer();
         $callFormatter = new StackFrameCallTextFormatter();

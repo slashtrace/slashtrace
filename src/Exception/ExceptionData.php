@@ -52,7 +52,7 @@ class ExceptionData implements JsonSerializable
         $this->stackTrace = $stackTrace;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return array_filter([
             "type"       => $this->getType(),

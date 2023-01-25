@@ -141,7 +141,7 @@ class Request implements JsonSerializable
         return null;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return [
             "url"     => $this->getUrl(),
